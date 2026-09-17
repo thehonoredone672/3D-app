@@ -1,0 +1,23 @@
+.dashboard-cards {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.dashboard-card {
+  flex: 1;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dashboard-card strong {
+  font-size: 2rem;
+}
+
+.dashboard-card span {
+  color: var(--color-muted);
+}

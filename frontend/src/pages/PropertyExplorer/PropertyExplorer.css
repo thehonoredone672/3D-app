@@ -1,0 +1,138 @@
+.explorer-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.explorer-centered {
+  align-items: center;
+  justify-content: center;
+}
+
+.explorer-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.explorer-logo {
+  font-weight: 700;
+}
+
+.explorer-project-name {
+  color: var(--color-muted);
+  flex: 1;
+}
+
+.explorer-exit {
+  font-size: 0.9rem;
+}
+
+.explorer-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.explorer-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--color-border);
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.explorer-sidebar-section {
+  margin-bottom: 24px;
+}
+
+.explorer-sidebar-section h4 {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+
+.chip-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.unit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.unit-list-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: none;
+  border: none;
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.unit-list-item:hover {
+  background: #f3f3f3;
+}
+
+.unit-list-item-active {
+  background: #eff6ff;
+  font-weight: 600;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.explorer-viewer {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .explorer-body {
+    flex-direction: column;
+  }
+
+  .explorer-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    max-height: 160px;
+  }
+}

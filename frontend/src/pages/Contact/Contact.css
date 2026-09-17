@@ -1,0 +1,14 @@
+.contact-page {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.contact-page h1 {
+  margin-bottom: 8px;
+}
+
+.contact-intro {
+  color: var(--color-muted);
+  margin: 0 0 24px;
+}

@@ -1,0 +1,53 @@
+.unit-info-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 220px;
+}
+
+.unit-info-panel h3 {
+  margin: 0 0 4px;
+}
+
+.unit-info-meta {
+  color: var(--color-muted);
+  margin: 0 0 4px;
+  font-size: 0.9rem;
+}
+
+.unit-info-price {
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.unit-info-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+}
+
+.unit-info-panel .btn {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+}
+
+.unit-info-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: var(--color-muted);
+  line-height: 1;
+  padding: 4px;
+}

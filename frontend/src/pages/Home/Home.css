@@ -1,0 +1,35 @@
+.home {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.home-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.home-headline {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.home-subtext {
+  color: var(--color-muted);
+  margin-bottom: 24px;
+}
+
+.home-preview {
+  margin-top: 48px;
+}
+
+.home-preview-box {
+  aspect-ratio: 16 / 9;
+  background: #f3f3f3;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+}

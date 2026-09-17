@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  BUYER
+}
+
+enum UnitStatus {
+  AVAILABLE
+  RESERVED
+  SOLD
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(BUYER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id             String     @id @default(uuid())
+  name           String
+  location       String
+  description    String
+  startingPrice  Float
+  imageUrl       String?
+  modelUrl       String?
+  amenities      String[]   @default([])
+  buildings      Building[]
+  enquiries      Enquiry[]
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Building {
+  id          String  @id @default(uuid())
+  projectId   String
+  project     Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  units       Unit[]
+}
+
+model Unit {
+  id           String     @id @default(uuid())
+  buildingId   String
+  building     Building   @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  unitNumber   String
+  floor        Int
+  bhk          Int
+  area         Float
+  price        Float
+  facing       String?
+  status       UnitStatus @default(AVAILABLE)
+  floorPlanUrl String?
+  modelUrl     String?
+  enquiries    Enquiry[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+model Enquiry {
+  id            String        @id @default(uuid())
+  name          String
+  email         String
+  phone         String
+  message       String?
+  preferredDate DateTime?
+  status        EnquiryStatus @default(NEW)
+  projectId     String?
+  project       Project?      @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  unitId        String?
+  unit          Unit?         @relation(fields: [unitId], references: [id], onDelete: SetNull)
+  createdAt     DateTime      @default(now())
+}

@@ -1,0 +1,82 @@
+.unit-details {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+
+.unit-details-breadcrumb {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin: 0 0 8px;
+}
+
+.unit-details h1 {
+  margin: 0 0 8px;
+}
+
+.unit-details-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 4px;
+}
+
+.unit-details-price {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 24px;
+}
+
+.unit-details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 24px;
+}
+
+.unit-details-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.unit-details-grid span {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.unit-details-section {
+  margin-bottom: 24px;
+}
+
+.unit-details-section h2 {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+.unit-details-floorplan {
+  max-width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+.unit-details-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.unit-details-modal-subtitle {
+  color: var(--color-muted);
+  margin: 0 0 16px;
+}
+
+@media (max-width: 480px) {
+  .unit-details-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

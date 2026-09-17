@@ -1,0 +1,42 @@
+.admin-project-form {
+  max-width: 480px;
+}
+
+.project-fields-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.project-fields-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.project-fields-form input,
+.project-fields-form textarea {
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  resize: vertical;
+}
+
+.project-fields-form button {
+  align-self: flex-start;
+}
+
+.upload-status {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.upload-status-error {
+  color: #b91c1c;
+}
