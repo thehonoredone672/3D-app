@@ -19,28 +19,30 @@ enum UnitStatus {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(BUYER)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String        @id @default(uuid())
+  name         String
+  email        String        @unique
+  password     String
+  role         Role          @default(BUYER)
+  scanSessions ScanSession[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
 model Project {
-  id             String     @id @default(uuid())
+  id             String        @id @default(uuid())
   name           String
   location       String
   description    String
   startingPrice  Float
   imageUrl       String?
   modelUrl       String?
-  amenities      String[]   @default([])
+  amenities      String[]      @default([])
   buildings      Building[]
   enquiries      Enquiry[]
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  scanSessions   ScanSession[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 }
 
 model Building {
@@ -53,21 +55,22 @@ model Building {
 }
 
 model Unit {
-  id           String     @id @default(uuid())
+  id           String        @id @default(uuid())
   buildingId   String
-  building     Building   @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  building     Building      @relation(fields: [buildingId], references: [id], onDelete: Cascade)
   unitNumber   String
   floor        Int
   bhk          Int
   area         Float
   price        Float
   facing       String?
-  status       UnitStatus @default(AVAILABLE)
+  status       UnitStatus    @default(AVAILABLE)
   floorPlanUrl String?
   modelUrl     String?
   enquiries    Enquiry[]
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  scanSessions ScanSession[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
 enum EnquiryStatus {
@@ -89,4 +92,48 @@ model Enquiry {
   unitId        String?
   unit          Unit?         @relation(fields: [unitId], references: [id], onDelete: SetNull)
   createdAt     DateTime      @default(now())
+}
+
+enum ScanStatus {
+  DRAFT
+  CAPTURING
+  UPLOADING
+  PROCESSING
+  READY
+  FAILED
+  APPROVED
+  PUBLISHED
+}
+
+enum ScanType {
+  ROOM
+  APARTMENT
+  EXTERIOR
+}
+
+model ScanSession {
+  id           String        @id @default(uuid())
+  projectId    String
+  project      Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  unitId       String
+  unit         Unit          @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  createdById  String
+  createdBy    User          @relation(fields: [createdById], references: [id])
+  status       ScanStatus    @default(DRAFT)
+  scanType     ScanType      @default(ROOM)
+  captureCount Int           @default(0)
+  modelUrl     String?
+  previewUrl   String?
+  captures     ScanCapture[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model ScanCapture {
+  id             String      @id @default(uuid())
+  scanSessionId  String
+  scanSession    ScanSession @relation(fields: [scanSessionId], references: [id], onDelete: Cascade)
+  fileUrl        String
+  sequenceNumber Int
+  createdAt      DateTime    @default(now())
 }

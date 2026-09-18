@@ -11,3 +11,6 @@ dist-ssr/
 
 backend/uploads/*
 !backend/uploads/.gitkeep
+backend/storage/
+backend/tools/*
+!backend/tools/README.md

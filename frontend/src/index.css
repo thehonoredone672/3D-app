@@ -108,6 +108,17 @@ button {
   gap: 12px;
 }
 
+.scan-status-badge {
+  display: inline-block;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
 .admin-table select {
   font-family: inherit;
   font-size: 0.85rem;

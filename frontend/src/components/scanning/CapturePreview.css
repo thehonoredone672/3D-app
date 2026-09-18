@@ -1,0 +1,22 @@
+.capture-preview-label {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  margin: 0 0 12px;
+}
+
+.capture-preview-image {
+  width: 100%;
+  border-radius: var(--radius);
+  display: block;
+  margin-bottom: 16px;
+}
+
+.capture-preview-remove {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #b91c1c;
+  color: #b91c1c;
+  border-radius: var(--radius);
+  padding: 10px;
+  font-size: 0.95rem;
+}

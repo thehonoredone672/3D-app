@@ -43,6 +43,7 @@ propview/
 - Click-to-select units in the 3D scene (by mesh naming convention, e.g. `Tower_A_Unit_101`), with building/floor filtering and status-based coloring (Available / Reserved / Sold)
 - Enquiry & site-visit request forms, stored in PostgreSQL
 - Admin dashboard: JWT-protected, role-based (`ADMIN` vs `BUYER`), full CRUD for projects/buildings/units, file uploads (project images, 3D models, floor plans), enquiries table with status updates
+- Mobile scanning & 3D reconstruction: a phone-browser guided capture flow (`/mobile-scan`) that uploads photos and runs them through a real, pluggable reconstruction pipeline — see below
 
 ## Prerequisites
 
@@ -67,6 +68,8 @@ JWT_SECRET="replace-with-a-long-random-string"
 JWT_EXPIRES_IN="7d"
 CORS_ORIGIN="http://localhost:5173"
 UPLOAD_DIR="uploads"
+SCAN_STORAGE_DIR="storage"
+RECONSTRUCTION_PROVIDER="null"
 ```
 
 Create the database, then run migrations and seed demo data:
@@ -143,6 +146,12 @@ GET    /api/enquiries           (admin)
 PUT    /api/enquiries/:id       (admin, status update)
 
 POST   /api/uploads             (admin, multipart file upload)
+
+POST   /api/scans               (admin)
+GET    /api/scans/:id           (admin)
+GET    /api/scans/:id/status    (admin)
+POST   /api/scans/:id/captures  (admin, multipart file upload)
+POST   /api/scans/:id/process   (admin, starts reconstruction)
 ```
 
 ## 3D Models
@@ -150,6 +159,28 @@ POST   /api/uploads             (admin, multipart file upload)
 Upload a `.glb`/`.gltf` file per project through the admin dashboard (Create/Edit Project → 3D Model). For unit-level click detection, name meshes in the model `<Building>_Unit_<UnitNumber>` (e.g. `Tower_A_Unit_101`) — matching the building name and unit number as entered in the admin panel.
 
 If a project has no uploaded model, the explorer falls back to a procedural building generated from that project's real building/unit data.
+
+## Mobile Scanning & 3D Reconstruction
+
+An admin can generate a unit's 3D model two ways:
+
+1. **Upload an existing model** (`.glb`) directly, same as project-level models — always available, no setup required.
+2. **Scan it with a phone**: from a unit's admin page, the "Scan" link opens `/mobile-scan?projectId=…&unitId=…` on any phone browser. It guides the user through a manual photo capture (no LiDAR/ARCore/ARKit required), lets them review and remove shots, then uploads the session. `/scans/:id` shows real-time status — no fabricated progress percentages, ever.
+
+Reconstruction itself is behind an adapter (`backend/src/services/reconstruction/`) so no single vendor is hardcoded:
+
+```text
+ReconstructionProvider (createModel / getStatus / downloadModel)
+        │
+   ┌────┼─────────┐
+   ▼    ▼         ▼
+ null  local    (future: cloud)
+```
+
+- **`null`** (default) — honestly reports "not configured" rather than faking a result. Nothing else in the app breaks; the "upload existing model" path still works.
+- **`local`** — a genuinely real pipeline: [COLMAP](https://colmap.github.io/) (feature extraction → matching → sparse structure-from-motion) followed by CPU-side Poisson surface reconstruction (via Python/Open3D) and GLB export (via trimesh). Dense multi-view stereo is intentionally skipped — COLMAP's dense stage is CUDA-only with no CPU fallback, and this pipeline is built to work without requiring a specific GPU. Reconstruction quality is entirely dependent on having enough real, overlapping photos of an actual space; see `backend/tools/README.md` to set it up.
+
+Set `RECONSTRUCTION_PROVIDER=local` in `.env` to enable it. Adding a real cloud provider later means implementing the same three-method interface and registering it in `providerRegistry.js` — no other code changes.
 
 ## Notes
 

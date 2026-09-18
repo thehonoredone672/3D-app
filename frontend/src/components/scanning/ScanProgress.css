@@ -1,0 +1,56 @@
+.scan-progress {
+  max-width: 360px;
+}
+
+.scan-progress-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.scan-progress-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+}
+
+.scan-progress-icon {
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.scan-progress-done {
+  color: var(--color-text);
+}
+
+.scan-progress-done .scan-progress-icon {
+  color: #10b981;
+}
+
+.scan-progress-active {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.scan-progress-active .scan-progress-icon {
+  color: var(--color-accent);
+}
+
+.scan-progress-pending {
+  color: var(--color-muted);
+}
+
+.scan-progress-note {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.scan-progress-error {
+  color: #b91c1c;
+}

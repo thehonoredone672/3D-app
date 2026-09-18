@@ -79,7 +79,10 @@ function UnitDetails() {
       </div>
 
       <div className="unit-details-actions">
-        <Link to={`/projects/${project.id}/explore`} className="btn btn-secondary">
+        <Link
+          to={unit.modelUrl ? `/units/${unit.id}/explore` : `/projects/${project.id}/explore`}
+          className="btn btn-secondary"
+        >
           View in 3D
         </Link>
         <button className="btn" onClick={() => setShowVisitForm(true)}>

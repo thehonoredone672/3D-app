@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { createUnit, updateUnit, deleteUnit } from "../../../services/units.js";
 import { deleteBuilding } from "../../../services/buildings.js";
 import { formatPrice } from "../../../utils/format.js";
@@ -90,6 +91,14 @@ function BuildingManager({ building, onChange }) {
                   <button className="link-button" onClick={() => setEditingUnit(unit)}>
                     Edit
                   </button>
+                  <Link
+                    className="link-button"
+                    to={`/mobile-scan?projectId=${building.projectId}&unitId=${unit.id}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Scan
+                  </Link>
                   <button
                     className="link-button link-button-danger"
                     onClick={() => handleDeleteUnit(unit)}
