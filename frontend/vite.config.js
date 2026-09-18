@@ -13,7 +13,11 @@ const httpsConfig = hasCerts
   : undefined
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // GitHub Pages serves this project from https://<user>.github.io/3D-app/,
+  // not the domain root, so built asset URLs need the repo name as a prefix.
+  // Local dev keeps serving from '/'.
+  base: command === 'build' ? '/3D-app/' : '/',
   plugins: [react()],
   server: {
     https: httpsConfig,
@@ -21,4 +25,4 @@ export default defineConfig({
   preview: {
     https: httpsConfig,
   },
-})
+}))

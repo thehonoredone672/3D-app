@@ -209,6 +209,36 @@ The mobile scanning flow (`/mobile-scan`) needs a real camera, and browsers only
 
 This is a dev-only setup for testing on your own network — not a public deployment.
 
+## Deploying to the Internet
+
+This deploys the frontend to **GitHub Pages** (free static hosting) and the backend + database to **Render** + **Neon** (both have free tiers). Reconstruction (`RECONSTRUCTION_PROVIDER=local`, the COLMAP pipeline) is intentionally left disabled in this setup — it needs a persistent server with COLMAP/Python installed, which free static/serverless hosting doesn't provide. The "upload an existing `.glb`" path works normally.
+
+### 1. Database — Neon
+
+1. Create a free account at [neon.tech](https://neon.tech) and a new project.
+2. Copy the connection string it gives you (starts with `postgresql://...`) — this is your `DATABASE_URL`.
+
+### 2. Backend — Render
+
+1. Create a free account at [render.com](https://render.com) and connect your GitHub account.
+2. **New → Blueprint**, pick this repo — it will read [`render.yaml`](render.yaml) at the repo root and pre-fill a `propview-api` web service (root dir `backend`, builds with `prisma migrate deploy`, `plan: free`).
+3. When prompted, fill in the two secret env vars it leaves blank:
+   - `DATABASE_URL` — the Neon connection string from step 1.
+   - `CORS_ORIGIN` — `https://YOUR_GITHUB_USERNAME.github.io` (no trailing slash).
+4. Deploy. Once live, note the service URL, e.g. `https://propview-api.onrender.com`.
+5. Seed demo data once, from your machine, by pointing your local `backend/.env`'s `DATABASE_URL` at the same Neon database and running `npm run prisma:seed` — or run it from Render's **Shell** tab on the service.
+6. Free-tier services spin down after inactivity; the first request after a while takes ~30-50s to wake up.
+
+### 3. Frontend — GitHub Pages
+
+1. In this repo on GitHub: **Settings → Pages → Build and deployment → Source: GitHub Actions**. (One-time toggle — the included [workflow](.github/workflows/deploy-pages.yml) handles the rest.)
+2. **Settings → Secrets and variables → Actions → Variables → New repository variable**:
+   - Name: `VITE_API_URL`
+   - Value: `https://propview-api.onrender.com/api` (your Render URL from above, with `/api`)
+3. Push to `main` (or re-run the workflow from the **Actions** tab) — it builds the frontend and publishes it to `https://YOUR_GITHUB_USERNAME.github.io/3D-app/`.
+
+Once both are live, share the GitHub Pages URL — anyone can open it in a browser and use the app; no download or install needed. The mobile scanning flow works too, since both Pages and Render serve over HTTPS by default.
+
 ## Notes
 
 - File uploads are stored locally under `backend/uploads/` in development. The upload path is isolated behind a single service (`services/uploads.js` on the frontend, `upload.middleware.js` on the backend) so it can be swapped for S3/Cloudinary/R2 later without touching calling code.
