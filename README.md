@@ -182,6 +182,33 @@ ReconstructionProvider (createModel / getStatus / downloadModel)
 
 Set `RECONSTRUCTION_PROVIDER=local` in `.env` to enable it. Adding a real cloud provider later means implementing the same three-method interface and registering it in `providerRegistry.js` — no other code changes.
 
+## Testing on a Phone
+
+The mobile scanning flow (`/mobile-scan`) needs a real camera, and browsers only allow camera access (`getUserMedia`) over HTTPS. To test it from a phone on the same WiFi network as your dev machine:
+
+1. Generate a self-signed certificate covering your machine's LAN IP (find it via `ipconfig` / `ifconfig`, e.g. `192.168.1.6`):
+
+   ```bash
+   mkdir certs
+   openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+     -keyout certs/dev.key -out certs/dev.crt \
+     -subj "/CN=YOUR_LAN_IP" \
+     -addext "subjectAltName=IP:YOUR_LAN_IP,DNS:localhost,IP:127.0.0.1"
+   ```
+
+2. In `backend/.env`, set:
+   ```env
+   SSL_KEY_PATH="../certs/dev.key"
+   SSL_CERT_PATH="../certs/dev.crt"
+   CORS_ORIGIN="https://localhost:5173,https://YOUR_LAN_IP:5173"
+   ```
+3. In `frontend/.env`, set `VITE_API_URL=https://YOUR_LAN_IP:4100/api`.
+4. Restart both `npm run dev` processes (env changes need a restart).
+5. On your phone, visit `https://YOUR_LAN_IP:4100/api/health` first and accept the certificate warning (this is expected — it's self-signed, not a real security problem on your own LAN), then visit `https://YOUR_LAN_IP:5173` and accept its warning too. Each `host:port` needs to be trusted separately.
+6. Log in at `/admin/login`, open a unit's admin page, and use its "Scan" link.
+
+This is a dev-only setup for testing on your own network — not a public deployment.
+
 ## Notes
 
 - File uploads are stored locally under `backend/uploads/` in development. The upload path is isolated behind a single service (`services/uploads.js` on the frontend, `upload.middleware.js` on the backend) so it can be swapped for S3/Cloudinary/R2 later without touching calling code.
