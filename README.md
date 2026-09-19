@@ -4,6 +4,8 @@ An MVP real-estate platform for interactive 3D property visualization. Developer
 
 Built as a deliberately minimal SaaS product — functional, clean architecture, no unnecessary complexity.
 
+This repo also contains **[ScanView](scanview/)**, a separate, unrelated app: a generic multi-view object scanner (turn any physical object into an interactive 3D view from guided phone-camera captures — see [scanview/README.md](scanview/README.md)). It ships from the same repo and GitHub Pages site as a matter of deployment convenience, not because the two products are connected.
+
 ## Tech Stack
 
 **Frontend:** React + Vite (JavaScript, no TypeScript) · React Router · Three.js · @react-three/fiber · @react-three/drei · Axios · plain CSS

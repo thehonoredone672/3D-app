@@ -1,0 +1,100 @@
+.object-setup {
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.object-setup-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.object-setup-header h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.object-setup-back {
+  color: #9aa4b2;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.object-setup-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: #9aa4b2;
+}
+
+.object-setup-input {
+  background: #171c26;
+  border: 1px solid #262d3a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #fff;
+  font-size: 15px;
+}
+
+.object-setup-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.object-setup-fieldset legend {
+  font-size: 14px;
+  color: #9aa4b2;
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.object-setup-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.object-setup-option-hint {
+  display: block;
+  font-size: 11px;
+  opacity: 0.75;
+  margin-top: 2px;
+}
+
+.object-setup-custom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #9aa4b2;
+}
+
+.object-setup-custom input[type="range"] {
+  width: 100%;
+  margin-top: 6px;
+}
+
+.object-setup-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #171c26;
+  border: 1px solid #262d3a;
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.object-setup-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}

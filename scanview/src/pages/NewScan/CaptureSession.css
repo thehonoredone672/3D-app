@@ -1,0 +1,128 @@
+.capture-session {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  color: #fff;
+}
+
+.capture-session-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 0;
+  z-index: 2;
+}
+
+.capture-session-exit {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.capture-session-count {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.capture-session-reticle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.capture-session-reticle-ring {
+  width: 140px;
+  height: 140px;
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+.capture-session-map {
+  position: absolute;
+  top: 64px;
+  right: 16px;
+  z-index: 2;
+}
+
+.capture-session-guidance {
+  position: absolute;
+  bottom: 150px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 2;
+  font-size: 16px;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.capture-session-bottom {
+  position: absolute;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+}
+
+.capture-session-shutter {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: #fff;
+  border: 5px solid rgba(255, 255, 255, 0.4);
+}
+
+.capture-session-shutter:disabled {
+  opacity: 0.4;
+}
+
+.capture-session-shutter-flash {
+  background: #3ecf6e;
+}
+
+.capture-session-confirm {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: rgba(10, 12, 18, 0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+}
+
+.capture-session-confirm-thumb {
+  width: 160px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.capture-session-confirm-hint {
+  color: #9aa4b2;
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+.capture-session-confirm-actions {
+  display: flex;
+  gap: 12px;
+}
